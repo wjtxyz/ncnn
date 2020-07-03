@@ -69,11 +69,11 @@ PipelineCache::pipeline_cache_digest::pipeline_cache_digest(int _shader_type_ind
 
     // encode opt
     opt_local_size_bits[0] = opt.use_image_storage << 7
-        | opt.use_fp16_packed << 6
-        | opt.use_fp16_storage << 5
-        | opt.use_fp16_arithmetic << 4
-        | opt.use_int8_storage << 3
-        | opt.use_int8_arithmetic << 2;
+                             | opt.use_fp16_packed << 6
+                             | opt.use_fp16_storage << 5
+                             | opt.use_fp16_arithmetic << 4
+                             | opt.use_int8_storage << 3
+                             | opt.use_int8_arithmetic << 2;
 
     // encode local_size
     opt_local_size_bits[1] = local_size_x;
@@ -86,7 +86,8 @@ PipelineCache::pipeline_cache_digest::pipeline_cache_digest(int _shader_type_ind
     specializations_fnv1a = fnv1a_32((const uint8_t*)specializations.data(), specialization_count * sizeof(vk_specialization_type));
 }
 
-PipelineCache::PipelineCache(const VulkanDevice* _vkdev) : vkdev(_vkdev)
+PipelineCache::PipelineCache(const VulkanDevice* _vkdev)
+    : vkdev(_vkdev)
 {
     last_digest_index = -1;
 }
@@ -151,7 +152,6 @@ int PipelineCache::get_pipeline(const uint32_t* spv_data, size_t spv_data_size, 
 
     // find cache
 
-
     ret = resolve_shader_info(spv_data, spv_data_size, shader_info);
     if (ret != 0)
     {
@@ -160,14 +160,14 @@ int PipelineCache::get_pipeline(const uint32_t* spv_data, size_t spv_data_size, 
     }
 
     VkShaderModule shader_module = 0;
-//     if (vkdev->info.bug_local_size_spec_const)
-//     {
-        shader_module = vkdev->compile_shader_module(spv_data, spv_data_size, local_size_x, local_size_y, local_size_z);
-//     }
-//     else
-//     {
-//         shader_module = vkdev->compile_shader_module(spv_data, spv_data_size);
-//     }
+    //     if (vkdev->info.bug_local_size_spec_const)
+    //     {
+    shader_module = vkdev->compile_shader_module(spv_data, spv_data_size, local_size_x, local_size_y, local_size_z);
+    //     }
+    //     else
+    //     {
+    //         shader_module = vkdev->compile_shader_module(spv_data, spv_data_size);
+    //     }
 
     if (!shader_module)
     {
@@ -296,14 +296,14 @@ int PipelineCache::create_shader_module(int shader_type_index, const Option& opt
         return -1;
     }
 
-//     if (vkdev->info.bug_local_size_spec_const)
-//     {
+    //     if (vkdev->info.bug_local_size_spec_const)
+    //     {
     VkShaderModule shader_module = vkdev->compile_shader_module(spv_data, spv_data_size, local_size_x, local_size_y, local_size_z);
-//     }
-//     else
-//     {
-//         shader_module = vkdev->compile_shader_module(spv_data, spv_data_size);
-//     }
+    //     }
+    //     else
+    //     {
+    //         shader_module = vkdev->compile_shader_module(spv_data, spv_data_size);
+    //     }
 
 #else // NCNN_VULKAN_ONLINE_SPIRV
     // ncnn_add_shader cmake macro
@@ -357,14 +357,14 @@ int PipelineCache::create_shader_module(int shader_type_index, const Option& opt
 
     si = get_shader_info(shader_type_index);
 
-//     if (vkdev->info.bug_local_size_spec_const)
-//     {
+    //     if (vkdev->info.bug_local_size_spec_const)
+    //     {
     VkShaderModule shader_module = vkdev->create_shader_module(shader_type_index, local_size_x, local_size_y, local_size_z);
-//     }
-//     else
-//     {
-//         shader_module = vkdev->get_shader_module(shader_type_index);
-//     }
+    //     }
+    //     else
+    //     {
+    //         shader_module = vkdev->get_shader_module(shader_type_index);
+    //     }
 
 #endif // NCNN_VULKAN_ONLINE_SPIRV
 
