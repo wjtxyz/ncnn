@@ -63,7 +63,7 @@ static uint32_t fnv1a_32(const uint8_t* data, int size)
 }
 
 PipelineCache::pipeline_cache_digest::pipeline_cache_digest(int _shader_type_index, const Option& opt, const std::vector<vk_specialization_type>& specializations,
-        uint32_t local_size_x, uint32_t local_size_y, uint32_t local_size_z)
+                                                            uint32_t local_size_x, uint32_t local_size_y, uint32_t local_size_z)
 {
     shader_type_index = _shader_type_index;
 

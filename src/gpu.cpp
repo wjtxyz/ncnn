@@ -256,7 +256,7 @@ static uint32_t find_device_compute_queue(const std::vector<VkQueueFamilyPropert
         const VkQueueFamilyProperties& queueFamilyProperty = queueFamilyProperties[i];
 
         if ((queueFamilyProperty.queueFlags & VK_QUEUE_COMPUTE_BIT)
-                && !(queueFamilyProperty.queueFlags & VK_QUEUE_GRAPHICS_BIT))
+            && !(queueFamilyProperty.queueFlags & VK_QUEUE_GRAPHICS_BIT))
         {
             return i;
         }
@@ -268,7 +268,7 @@ static uint32_t find_device_compute_queue(const std::vector<VkQueueFamilyPropert
         const VkQueueFamilyProperties& queueFamilyProperty = queueFamilyProperties[i];
 
         if ((queueFamilyProperty.queueFlags & VK_QUEUE_COMPUTE_BIT)
-                && (queueFamilyProperty.queueFlags & VK_QUEUE_GRAPHICS_BIT))
+            && (queueFamilyProperty.queueFlags & VK_QUEUE_GRAPHICS_BIT))
         {
             return i;
         }
@@ -297,7 +297,7 @@ static uint32_t find_device_graphics_queue(const std::vector<VkQueueFamilyProper
         const VkQueueFamilyProperties& queueFamilyProperty = queueFamilyProperties[i];
 
         if ((queueFamilyProperty.queueFlags & VK_QUEUE_GRAPHICS_BIT)
-                && !(queueFamilyProperty.queueFlags & VK_QUEUE_COMPUTE_BIT))
+            && !(queueFamilyProperty.queueFlags & VK_QUEUE_COMPUTE_BIT))
         {
             return i;
         }
@@ -309,7 +309,7 @@ static uint32_t find_device_graphics_queue(const std::vector<VkQueueFamilyProper
         const VkQueueFamilyProperties& queueFamilyProperty = queueFamilyProperties[i];
 
         if ((queueFamilyProperty.queueFlags & VK_QUEUE_GRAPHICS_BIT)
-                && (queueFamilyProperty.queueFlags & VK_QUEUE_COMPUTE_BIT))
+            && (queueFamilyProperty.queueFlags & VK_QUEUE_COMPUTE_BIT))
         {
             return i;
         }
@@ -338,8 +338,8 @@ static uint32_t find_device_transfer_queue(const std::vector<VkQueueFamilyProper
         const VkQueueFamilyProperties& queueFamilyProperty = queueFamilyProperties[i];
 
         if ((queueFamilyProperty.queueFlags & VK_QUEUE_TRANSFER_BIT)
-                && !(queueFamilyProperty.queueFlags & VK_QUEUE_COMPUTE_BIT)
-                && !(queueFamilyProperty.queueFlags & VK_QUEUE_GRAPHICS_BIT))
+            && !(queueFamilyProperty.queueFlags & VK_QUEUE_COMPUTE_BIT)
+            && !(queueFamilyProperty.queueFlags & VK_QUEUE_GRAPHICS_BIT))
         {
             return i;
         }
@@ -647,9 +647,9 @@ int create_gpu_instance()
         }
 
         if (physicalDeviceProperties.vendorID == 0x13b5
-                && (physicalDeviceProperties.deviceID == 0x7500001
-                    || physicalDeviceProperties.deviceID == 0x8602000
-                    || physicalDeviceProperties.deviceID == 0x8800020))
+            && (physicalDeviceProperties.deviceID == 0x7500001
+                || physicalDeviceProperties.deviceID == 0x8602000
+                || physicalDeviceProperties.deviceID == 0x8800020))
         {
             // these arm mali midgard era driver cannot handle binding id alias
             gpu_info.bug_layout_binding_id_alias = true;
@@ -663,13 +663,13 @@ int create_gpu_instance()
 #endif
 
         if (physicalDeviceProperties.vendorID == 0x13b5
-                && (physicalDeviceProperties.deviceID == 0x7500001
-                    || physicalDeviceProperties.deviceID == 0x8602000
-                    || physicalDeviceProperties.deviceID == 0x8800020
-                    || physicalDeviceProperties.deviceID == 0x70901010
-                    || physicalDeviceProperties.deviceID == 0x74021000
-                    || physicalDeviceProperties.deviceID == 0x60a00002
-                    || physicalDeviceProperties.deviceID == 0x62210001))
+            && (physicalDeviceProperties.deviceID == 0x7500001
+                || physicalDeviceProperties.deviceID == 0x8602000
+                || physicalDeviceProperties.deviceID == 0x8800020
+                || physicalDeviceProperties.deviceID == 0x70901010
+                || physicalDeviceProperties.deviceID == 0x74021000
+                || physicalDeviceProperties.deviceID == 0x60a00002
+                || physicalDeviceProperties.deviceID == 0x62210001))
         {
             // NOTE rk3288/rk3399/t880/g51/g52/g71/g72
             // however, g76/g77 has explicit fp16 arithmetic
@@ -678,9 +678,9 @@ int create_gpu_instance()
         }
 
         if (physicalDeviceProperties.vendorID == 0x5143
-                && (physicalDeviceProperties.deviceID == 0x6030001
-                    || physicalDeviceProperties.deviceID == 0x6040001
-                    || physicalDeviceProperties.deviceID == 0x6050002))
+            && (physicalDeviceProperties.deviceID == 0x6030001
+                || physicalDeviceProperties.deviceID == 0x6040001
+                || physicalDeviceProperties.deviceID == 0x6050002))
         {
             // TODO enable devices other than qcom845/qcom855/qcom855plus/qcom865
             // qcom adreno driver accept spirv with fp16 arithmetic
@@ -977,7 +977,7 @@ void destroy_gpu_instance()
     if ((VkInstance)g_instance == 0)
         return;
 
-    // NCNN_LOGE("destroy_gpu_instance");
+        // NCNN_LOGE("destroy_gpu_instance");
 
 #if NCNN_VULKAN_ONLINE_SPIRV
     glslang::FinalizeProcess();
@@ -1682,8 +1682,8 @@ uint32_t VulkanDevice::find_memory_index(uint32_t memory_type_bits, VkFlags requ
         {
             const VkMemoryType& memoryType = info.physicalDeviceMemoryProperties.memoryTypes[i];
             if ((memoryType.propertyFlags & required) == required
-                    && (preferred && (memoryType.propertyFlags & preferred))
-                    && (preferred_not && !(memoryType.propertyFlags & preferred_not)))
+                && (preferred && (memoryType.propertyFlags & preferred))
+                && (preferred_not && !(memoryType.propertyFlags & preferred_not)))
             {
                 return i;
             }
@@ -1698,7 +1698,7 @@ uint32_t VulkanDevice::find_memory_index(uint32_t memory_type_bits, VkFlags requ
         {
             const VkMemoryType& memoryType = info.physicalDeviceMemoryProperties.memoryTypes[i];
             if ((memoryType.propertyFlags & required) == required
-                    && (preferred && (memoryType.propertyFlags & preferred)))
+                && (preferred && (memoryType.propertyFlags & preferred)))
             {
                 return i;
             }
@@ -1713,7 +1713,7 @@ uint32_t VulkanDevice::find_memory_index(uint32_t memory_type_bits, VkFlags requ
         {
             const VkMemoryType& memoryType = info.physicalDeviceMemoryProperties.memoryTypes[i];
             if ((memoryType.propertyFlags & required) == required
-                    && (preferred_not && !(memoryType.propertyFlags & preferred_not)))
+                && (preferred_not && !(memoryType.propertyFlags & preferred_not)))
             {
                 return i;
             }
@@ -1755,8 +1755,8 @@ bool VulkanDevice::is_coherent(uint32_t memory_type_index) const
 VkQueue VulkanDevice::acquire_queue(uint32_t queue_family_index) const
 {
     if (queue_family_index != info.compute_queue_family_index
-            && queue_family_index != info.graphics_queue_family_index
-            && queue_family_index != info.transfer_queue_family_index)
+        && queue_family_index != info.graphics_queue_family_index
+        && queue_family_index != info.transfer_queue_family_index)
     {
         NCNN_LOGE("invalid queue_family_index %u", queue_family_index);
         return 0;
@@ -1765,7 +1765,7 @@ VkQueue VulkanDevice::acquire_queue(uint32_t queue_family_index) const
     MutexLockGuard lock(queue_lock);
 
     std::vector<VkQueue>& queues = queue_family_index == info.compute_queue_family_index ? compute_queues
-                                   : queue_family_index == info.graphics_queue_family_index ? graphics_queues : transfer_queues;
+                                                                                         : queue_family_index == info.graphics_queue_family_index ? graphics_queues : transfer_queues;
     for (int i = 0; i < (int)queues.size(); i++)
     {
         VkQueue queue = queues[i];
@@ -1783,8 +1783,8 @@ VkQueue VulkanDevice::acquire_queue(uint32_t queue_family_index) const
 void VulkanDevice::reclaim_queue(uint32_t queue_family_index, VkQueue queue) const
 {
     if (queue_family_index != info.compute_queue_family_index
-            && queue_family_index != info.graphics_queue_family_index
-            && queue_family_index != info.transfer_queue_family_index)
+        && queue_family_index != info.graphics_queue_family_index
+        && queue_family_index != info.transfer_queue_family_index)
     {
         NCNN_LOGE("invalid queue_family_index %u", queue_family_index);
         return;
@@ -1793,7 +1793,7 @@ void VulkanDevice::reclaim_queue(uint32_t queue_family_index, VkQueue queue) con
     MutexLockGuard lock(queue_lock);
 
     std::vector<VkQueue>& queues = queue_family_index == info.compute_queue_family_index ? compute_queues
-                                   : queue_family_index == info.graphics_queue_family_index ? graphics_queues : transfer_queues;
+                                                                                         : queue_family_index == info.graphics_queue_family_index ? graphics_queues : transfer_queues;
     for (int i = 0; i < (int)queues.size(); i++)
     {
         if (!queues[i])
